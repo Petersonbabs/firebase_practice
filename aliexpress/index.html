@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aliexpress - Shop and bah</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    header {
+        background-color: #999;
+        padding: .5rem 4rem;
+        margin-bottom: 1rem;
+        color: white;
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+
+
+    .products {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
+    }
+
+
+
+    .product-card img,
+    .img-con {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .cart-control-btns {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        margin: .5rem 0 0;
+    }
+</style>
+
+<body>
+    <header>
+        <h1>Logo</h1>
+        <a id="cart" href="./cart.html">0</a>
+    </header>
+
+    <div class="products" id="products">
+        <!-- <div class="product-card">
+            <div class="img-con">
+                <img src="https://images.unsplash.com/photo-1601300921391-a761a8fffb12?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmVhdXRpZnVsJTIwYm95fGVufDB8fDB8fHww"
+                    alt="">
+            </div>
+            <h3>SHoe product</h3>
+            <span>$900</span>
+            <span>Fashion</span>
+            <div class="cart-control-btns">
+                <div>
+                    <span>-</span>
+                    <span>1</span>
+                    <span>+</span>
+                </div>
+                <button>Add To Cart</button>
+            </div>
+        </div> -->
+
+    </div>
+
+    <!-- <button id="call" buttonId="67">click</button>
+    <button id="call-2" buttonId="90">Call 2</button> -->
+    <script src="./index.js" type="module"></script>
+</body>
+
+</html>

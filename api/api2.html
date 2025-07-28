@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        const baseUrl = "https://fakestoreapi.com"
+        const product = {
+            title: "Nike Show",
+            price: 700,
+            description: "this is the description",
+            category: "fashion" 
+        }
+
+        const addProduct = async () => {
+            console.log("adding")
+            try {
+                const res = await fetch(`${baseUrl}/products`, {
+                    method: "POST",
+                    body: JSON.stringify(product),
+                    headers: {
+                        "Content-Type" : "application/json"
+                    }
+                })  
+                const data = await res.json()
+                console.log(data);
+            } catch (error) {
+                console.log(error)
+            } finally {
+                console.log("Done!");
+            }
+        }
+        
+        addProduct()
+
+    </script>
+</body>
+</html>

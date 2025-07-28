@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>SIGN UP</h1>
+  <input type="email" placeholder="email" id="email">
+  <input type="text" id="gender" placeholder="gender" />
+  <input type="text" id="name" placeholder="name" />
+  <input placeholder="password" id="password" />
+  <button id="btn">Sign Up</button>
+
+  <script type="module">
+    const emailEl = document.getElementById("email")
+    const passwordEl = document.getElementById("password")
+    const nameEl = document.getElementById("name")
+    const genderEl = document.getElementById("gender")
+    const btnEl = document.getElementById("btn")
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js"
+
+    import { getFirestore, setDoc, doc, collection } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDBowe5BvXeeSC_RFW_PGTwPytAZUe2jMM",
+      authDomain: "konga-8021a.firebaseapp.com",
+      projectId: "konga-8021a",
+      storageBucket: "konga-8021a.firebasestorage.app",
+      messagingSenderId: "910645393358",
+      appId: "1:910645393358:web:848a6680db15af4797dd9f"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app)
+    const DB = getFirestore(app)
+    const usersColRef = collection(DB, "users")
+
+    const signup = async () => {
+      console.log("Loading...");
+      try {
+        const userCredentials = await createUserWithEmailAndPassword(auth, emailEl.value, passwordEl.value)
+        console.log(userCredentials);
+        // window.location.href = "./signin.html"
+        const newUser = {
+          name: nameEl.value,
+          email: emailEl.value,
+          gender: genderEl.value
+        }
+        if (userCredentials.user) {
+            sendEmailVerification(userCredentials.user)
+            await setDoc(doc(usersColRef, userCredentials.user.uid), newUser)
+        }
+
+      } catch (error) {
+        console.log(error);
+        if (error.code == "auth/email-already-in-use") {
+            alert("email already used")
+        } else if (error.code == "auth/password-does-not-meet-requirement") {
+            alert("invalid password")
+        }
+
+      } finally {
+        console.log("DONE!");
+
+      }
+    }
+
+  btnEl.addEventListener("click", signup)
+  </script>
+</body>
+
+</html>

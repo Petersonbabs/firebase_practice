@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .time{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid;
+            padding: 1rem;
+            width: 100px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+        <h1>Date constructor</h1>
+        <div class="time">
+            <p id="hour-el"></p>
+            <span>:</span>
+            <p id="min-el"></p>
+            <span id="sec-el"></span>
+        </div>
+
+        <input type="time" id="time">
+        <button id="btn">Set Alarm</button>
+
+    <script>
+        const hourEl = document.getElementById("hour-el")
+        const minEl = document.getElementById("min-el")
+        const secEl = document.getElementById("sec-el")
+        const timeEL = document.getElementById("time")
+        const btnEL = document.getElementById("btn")
+        const now = new Date()
+
+        setInterval(()=>{
+            const now = new Date()
+            hourEl.textContent = now.getHours()
+            minEl.textContent = now.getMinutes()
+            secEl.textContent = now.getSeconds()
+        }, 1000)
+
+        const setAlarm = () =>{
+            const alarmTime = timeEL.value
+            console.log(alarmTime);
+                if () {
+                    alert("wake up")
+                }
+            
+        }
+
+        btnEL.addEventListener("click", setAlarm)
+
+    </script>
+</body>
+</html>
