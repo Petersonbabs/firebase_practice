@@ -1,6 +1,6 @@
 import { app } from "../firestore/firebase.js"
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js"
-import { collection, getFirestore, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { collection, getFirestore, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 import { baseUrl } from "./utils.js"
 
 const DB = getFirestore(app)
@@ -20,12 +20,10 @@ const getElement = (selector) => {
     return element
 }
 
-export const getCartCount = async () => {
+export const getCartNumber = async () => {
     const cartEl = getElement("#cart")
     const user = auth.currentUser
-    console.log(user.uid)
     const cartItems = await getCartItems(user.uid)
-    console.log(cartItems.size)
     cartEl.textContent = cartItems.size
 }
 
@@ -60,7 +58,7 @@ export const addToCart = async (id) => {
         // add it to firestore subcollection
         const cartItemsColRef = collection(cartColRef, user.uid, "cartItems")
         const docRef = await addDoc(cartItemsColRef, newCartItem)
-        getCartCount()
+        getCartNumber()
     } catch (error) {
         console.log(error)
     } finally {
@@ -76,9 +74,34 @@ export const getCartItems = async (uid) => {
             const querySnapShot = await getDocs(userCartRef)
             return querySnapShot
         }
+        return null
     } catch (error) {
         console.log(error)
     } finally {
         console.log("DONE!")
+    }
+}
+
+export const clearCart = async () => {
+    try {
+
+    } catch (error) {
+
+    }
+}
+
+export const removeCartItem = async (id) => {
+    console.log('deleting...')
+    try {
+        console.log(id)
+        const docRef = doc(cartColRef, auth.currentUser.uid, "cartItems", id)
+        console.log(docRef)
+        const dd = await deleteDoc(docRef)
+        console.log(dd)
+        getCartNumber()
+    } catch (error) {
+        console.log(error)
+    } finally {
+        console.log("DELETED!")
     }
 }

@@ -1,6 +1,6 @@
 
 import { app } from "../firestore/firebase.js"
-import { addToCart, getCartItems, getCartCount } from "./cartFunctions.js"
+import { addToCart, getCartNumber } from "./cartFunctions.js"
 import { baseUrl } from "./utils.js"
 
 // FIREBASE IMPORT
@@ -12,7 +12,7 @@ let currentUser
 onAuthStateChanged(auth, (user) => {
     if (user) {
         currentUser = user
-        getCartCount()
+        getCartNumber()
     }
 })
 
@@ -24,7 +24,6 @@ const getElement = (selector) => {
     }
     return element
 }
-
 const productsEl = getElement("#products")
 
 // FETHC PRODUCT FROM DATABASE
@@ -33,7 +32,6 @@ const fetchProducts = async () => {
     try {
         const res = await fetch(`${baseUrl}/products`)
         const data = await res.json()
-        console.log(data)
         displayProducts(data)
     } catch (error) {
         console.log(error)
@@ -76,7 +74,7 @@ const displayProducts = (products = []) => {
             addToCart(productId)
         })
     })
-
+    
 }
 
 
